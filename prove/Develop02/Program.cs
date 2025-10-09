@@ -12,12 +12,12 @@ class Program
         Journal journal = new Journal();
         promptGenerator._fileName = "prompt.txt";
         
-        //promptGenerator._prompts.Add("What is the best thing that happened today?");
-        //promptGenerator._prompts.Add("What was the worse thing that happened today?");
-        //promptGenerator._prompts.Add("Did you go anywhere today?");
-        //promptGenerator._prompts.Add("any big news to report about?");
-        //promptGenerator._prompts.Add("Anything fun happen?");
-        // prompts are in C:\Users\GAMEPOWER\Documents\byui\cse210\cse210-projects\prove\Develop02\bin\Debug\net8.0\prompt.txt
+        promptGenerator._prompts.Add("What is the best thing that happened today?");
+        promptGenerator._prompts.Add("What was the worse thing that happened today?");
+        promptGenerator._prompts.Add("Did you go anywhere today?");
+        promptGenerator._prompts.Add("any big news to report about?");
+        promptGenerator._prompts.Add("Anything fun happen?");
+        //prompts are in C:\Users\GAMEPOWER\Documents\byui\cse210\cse210-projects\prove\Develop02\bin\Debug\net8.0\prompt.txt
         //Entries is in C:\Users\GAMEPOWER\Documents\byui\cse210\cse210-projects\prove\Develop02\bin\Debug\net8.0\myFile.txt
         while (manu != "6")
         {
@@ -33,7 +33,7 @@ class Program
             manu = Console.ReadLine();
 
             if (manu == "1")
-            {
+            { 
                 promptGenerator.LoadPrompt();
                 entry._prompt = promptGenerator.RandomPrompt();
                 entry._userInput = Console.ReadLine();
@@ -60,6 +60,7 @@ class Program
 
             else if (manu == "5")
             {
+                promptGenerator._prompts.Clear();
                 promptGenerator.AddPrompt();
                 promptGenerator.SavePrompt();
             }
