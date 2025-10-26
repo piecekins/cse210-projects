@@ -17,7 +17,7 @@ public class Word{
         //Console.Write(randomIndex);
         return randomIndex;
     }
-        public void SplitWords(string text)
+        private void SplitWords(string text)
     {
         _words.Clear();
         string[] words = text.Split(" ");
