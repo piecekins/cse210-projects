@@ -6,7 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 public class Word{
     private List<string> _words = new List<string>();
 
-    private string hiddenWord;
+    private string _hiddenWord;
 
     private int RandomIndex()
     {
@@ -36,10 +36,10 @@ public class Word{
         {
             int index = RandomIndex();
             //Console.Write(index);
-            hiddenWord = _words[index];
+            _hiddenWord = _words[index];
             
 
-            foreach (char letter in hiddenWord)
+            foreach (char letter in _hiddenWord)
             {
                 {
                     if (letter == '_')
@@ -48,7 +48,7 @@ public class Word{
                     }
                     else
                     {
-                        int length = hiddenWord.Count();
+                        int length = _hiddenWord.Count();
 
                         _words[index] = new String('_', length);
                         timesRun = timesRun - 1;
