@@ -6,7 +6,9 @@ using System.Security.Cryptography.X509Certificates;
 class Program
 {
     static void Main(string[] args)
-    {
+    {   
+        //I added a bonus system where if you complete 3 goals in one session you'll get a bonus
+        //and for every 3 goals you do it will be 50 points more, it also counts how many you times you complete goals.
         //Console.WriteLine("Hello Develop05 World!");
         string userInput = "";
         SaveLoad saveLoad = new SaveLoad();
