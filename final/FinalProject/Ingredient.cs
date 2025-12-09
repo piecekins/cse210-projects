@@ -18,7 +18,7 @@ class Ingredient
 
     public virtual void ShowIngredient()
     {
-        Console.WriteLine($"{_name}: Buffs({_buffProperty}: {_buffAmount})");
+        Console.WriteLine($"{_name}: Buffs({_buffProperty.ToLower()}: {_buffAmount})");
     }
 
     public string GetName()

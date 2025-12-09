@@ -29,7 +29,7 @@ class SaveLoad
         {   
             foreach (Ingredient ingredient in _ingredients)
             {
-                
+                outputFile.Write($"{ingredient.GetType()},");
                 foreach (string element in ingredient.GetStringRepresentation())
                 {
                     outputFile.Write($"{element},");
@@ -48,15 +48,15 @@ class SaveLoad
         {
             string[] parts = line.Split(",");
 
-            if (parts.Count() == 3)
+            if (parts[0] == "NeutralIngredient")
             {
-                NeutralIngredient ingredient = new NeutralIngredient(parts[0], parts[1], int.Parse(parts[2]));  
+                NeutralIngredient ingredient = new NeutralIngredient(parts[1], parts[2], int.Parse(parts[3]));  
                 _ingredients.Add(ingredient);
             }
 
-            else if (parts.Count() == 4)
+            else if (parts[0] == "GoodIngredient")
             {
-                GoodIngredient ingredient = new GoodIngredient(parts[0], parts[1], int.Parse(parts[2]), parts[3]);
+                GoodIngredient ingredient = new GoodIngredient(parts[1], parts[2], int.Parse(parts[3]), parts[4]);
                 _ingredients.Add(ingredient);
             }
             

@@ -16,7 +16,7 @@ class Program
         int value3;
         string value4;       
         bool inPropertries = false;
-          while (userInput != "9")
+          while (userInput != "8")
         {
             Console.WriteLine("Menu Options");
             Console.WriteLine("  1. Brew Potion");
@@ -34,7 +34,7 @@ class Program
             if (userInput == "1")
             {
                 Brewer brewer = new Brewer();
-                brewer.Mixer(ingredients, properties);
+                //brewer.Mixer(ingredients, properties);
             }
         
             else if (userInput == "2")
@@ -65,11 +65,11 @@ class Program
                         Console.WriteLine($"{i}: {property.GetNameAdd()}");
                         i = 1 + i;
                     }
-
+                    Console.WriteLine("\nWhat property does this ingredient buff? ");
+                    value2 = Console.ReadLine();
                     while (inPropertries == false)
                     {
-                        Console.WriteLine("\nWhat property does this ingredient buff? ");
-                        value2 = Console.ReadLine();
+                        
                         foreach (Property property in properties)
                         {
                             if (property.GetNameAdd().ToLower() == value2.ToLower())
@@ -84,8 +84,11 @@ class Program
                             break;
                         }
                         Console.WriteLine("Unknown propertry, please try again.");
+                        Console.WriteLine("\nWhat property does this ingredient buff? ");
+                        value2 = Console.ReadLine();
+                        
                     }
-                    value2 = Console.ReadLine();
+                    
                     Console.WriteLine("How much power does this ingredent give? ");
                     value3 = int.Parse(Console.ReadLine());
                     Console.WriteLine("\nDoes this ingredent have a property debuff? ");

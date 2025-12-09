@@ -54,7 +54,7 @@ class Property
 
     public void ShowPropertry()
     {
-        Console.WriteLine($"Adds {_nameAdd} : Minus {_nameMinus}");
+        Console.WriteLine($"{_nameAdd} : (Adds {_nameAdd} : Minus {_nameMinus})");
     }
     public List<string> GetStringRepresentation()
     {

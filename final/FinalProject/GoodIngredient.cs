@@ -10,7 +10,7 @@ class GoodIngredient : Ingredient
 
     public override void ShowIngredient()
     {
-        Console.WriteLine($"{_name}: Buffs({_buffProperty}:{_buffAmount}) and Debuffs({_debuffProperty}: -{_buffAmount})");
+        Console.WriteLine($"{_name}: Buffs({_buffProperty.ToLower()}:{_buffAmount}) and Debuffs({_debuffProperty.ToLower()}: -{_buffAmount})");
     }
 
     public override List<string> GetStringRepresentation()
