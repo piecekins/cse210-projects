@@ -9,6 +9,7 @@ class Program
         string userInput = "0";
 
         SaveLoad saveLoad = new SaveLoad();
+        List<Ingredient> ingredientUsed = new List<Ingredient>();
         List<Property> properties = saveLoad.PropertryGetter();
         List<Ingredient> ingredients = saveLoad.IngredientGetter();
         string value1;
@@ -18,6 +19,7 @@ class Program
         bool inPropertries = false;
           while (userInput != "8")
         {
+
             Console.WriteLine("Menu Options");
             Console.WriteLine("  1. Brew Potion");
             Console.WriteLine("  2. Make Property");
@@ -28,22 +30,38 @@ class Program
             Console.WriteLine("  7. Load");
             //Console.WriteLine("  8. Recipes");
             Console.WriteLine("  8. Quit");
+            
             Console.Write("Select a choice from the menu: ");
             userInput = Console.ReadLine();
-
+            Console.Clear();
             if (userInput == "1")
             {
-                Brewer brewer = new Brewer();
-                //brewer.Mixer(ingredients, properties);
+
+
+                Brewer brewer = new Brewer(ingredientUsed);
+                Console.WriteLine("What is the name of your potion?");
+                value1 = Console.ReadLine();
+                Potion potion = new Potion(value1, brewer.Mixer(ingredients, properties));
+
+                Console.Clear();
+                potion.DisplayPotion();
+                potion.PotionClear();
+                foreach (Property property in properties)
+                {
+                    property.PropertryClear();
+                }
+
             }
         
             else if (userInput == "2")
             {
-              Console.WriteLine("\nWhat is the name of the property: ");
+              Console.Write("\nWhat is the name of the property: ");
               value1 = Console.ReadLine();
-              Console.WriteLine("\nWhat is the name of the property that this minus': ");
+              Console.Write("\nWhat is the name of the property that this minus': ");
               value2 = Console.ReadLine();
               Property property = new Property(value1, value2);
+              properties.Add(property);
+              property = new Property(value2, value1);
               properties.Add(property);
             }
             
@@ -55,7 +73,7 @@ class Program
                 }
                 else
                 {   
-                    Console.WriteLine("\nWhat is the name of the ingredent? ");
+                    Console.Write("\nWhat is the name of the ingredent? ");
                     value1 = Console.ReadLine();
                     Console.WriteLine();
 
@@ -65,7 +83,7 @@ class Program
                         Console.WriteLine($"{i}: {property.GetNameAdd()}");
                         i = 1 + i;
                     }
-                    Console.WriteLine("\nWhat property does this ingredient buff? ");
+                    Console.Write("\nWhat property does this ingredient buff: ");
                     value2 = Console.ReadLine();
                     while (inPropertries == false)
                     {
@@ -84,12 +102,12 @@ class Program
                             break;
                         }
                         Console.WriteLine("Unknown propertry, please try again.");
-                        Console.WriteLine("\nWhat property does this ingredient buff? ");
+                        Console.Write("\nWhat property does this ingredient buff: ");
                         value2 = Console.ReadLine();
                         
                     }
                     
-                    Console.WriteLine("How much power does this ingredent give? ");
+                    Console.Write("How much power does this ingredent give: ");
                     value3 = int.Parse(Console.ReadLine());
                     Console.WriteLine("\nDoes this ingredent have a property debuff? ");
                     if (Console.ReadLine().ToLower() == "no")
@@ -98,7 +116,9 @@ class Program
                         ingredients.Add(neutral);
                     }
                     else
-                    {
+                    {   
+                        inPropertries = false;
+                        Console.WriteLine();
                          i = 1;
                         foreach(Property property in properties)
                         {
@@ -106,11 +126,11 @@ class Program
                         i = 1 + i;
                         }
 
-                    
+                        Console.WriteLine("\nWhat property does this ingredent debuff? ");
+                            value4 = Console.ReadLine();
                         while (inPropertries == false)
                         {
-                            Console.WriteLine("\nWhat property does this ingredent debuff? ");
-                            value4 = Console.ReadLine();
+                            
                             foreach (Property property in properties)
                             {
                                 if (property.GetNameAdd().ToLower() == value2.ToLower())
@@ -124,11 +144,14 @@ class Program
                                 break;
                             }
                             Console.WriteLine("Unknown propertry, please try again.");
+                            Console.WriteLine("\nWhat property does this ingredent debuff? ");
+                            value4 = Console.ReadLine();
                         }
-                        value4 = Console.ReadLine();
+
                             
                         GoodIngredient good = new GoodIngredient(value1, value2, value3, value4);
                         ingredients.Add(good);
+                        inPropertries = false;
                     }
                     
                     
@@ -137,6 +160,10 @@ class Program
 
             else if(userInput == "4")
             {
+                if (properties.Count() == 0)
+                {
+                    Console.WriteLine("No Properties made.");
+                }
                 int i = 1;
                 foreach(Property propertry in properties)
                 {
@@ -148,6 +175,10 @@ class Program
 
             else if(userInput == "5")
             {
+                if (ingredients.Count() == 0)
+                {
+                    Console.WriteLine("No Ingredients made.");
+                }
                 int i = 1;
                 foreach(Ingredient ingredient in ingredients)
                 {

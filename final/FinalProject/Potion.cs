@@ -12,10 +12,19 @@ class Potion
 
     public void DisplayPotion()
     {
+        Console.WriteLine($"\n{_name}");
+        Console.WriteLine("\nPropertries");
         foreach (Property property in _propertries)
         {
-            Console.WriteLine($"{property.GetNameAdd}: {property.GetValueAdd}");
+            Console.WriteLine($"{property.GetNameAdd()}: {property.GetValueAdd()}");
         }
+    }
+    public void PotionClear()
+    {
+        foreach (Property property in _propertries)
+                {
+                    property.PropertryClear();
+                }
     }
     
 }

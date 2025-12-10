@@ -43,13 +43,10 @@ class Property
         _valueMinus = value;
     }
 
-    public void PropertryClear(List<Property> propertries)
+    public void PropertryClear()
     {
-        foreach (Property property in propertries)
-        {
-            property.SetValueAdd(0);
-            property.SetValueMinus(0);
-        }
+            SetValueAdd(0);
+            SetValueMinus(0);
     }
 
     public void ShowPropertry()

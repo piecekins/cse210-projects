@@ -4,7 +4,7 @@ class GoodIngredient : Ingredient
 
     public GoodIngredient(string name, string buffProperty, int buffAmount, string debuffProperty) : base(name, buffProperty, buffAmount)
     {
-        _debuffAmount = -buffAmount;
+        _debuffAmount = buffAmount;
         _debuffProperty = debuffProperty;
     }
 

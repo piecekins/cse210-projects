@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Threading.Tasks.Dataflow;
 
 class Brewer
 {
@@ -7,9 +8,9 @@ class Brewer
     private List<Ingredient> _ingredientsUsed;
 
 
-    public Brewer()
+    public Brewer(List<Ingredient> ingredientUsed)
     {
-
+        _ingredientsUsed = ingredientUsed;
     }
 
     private void PropertiesAdding(List<Property> _propertries)
@@ -21,7 +22,7 @@ class Brewer
                 if (ingredent.GetBuffProperty().ToLower() == property.GetNameAdd().ToLower())
                 {
                     property.SetValueAdd(ingredent.GetBuffAmount() + property.GetValueAdd());
-                    property.SetValueMinus(ingredent.GetDebuffAmount() + property.GetValueMinus());
+                    property.SetValueMinus(ingredent.GetBuffAmount() + property.GetValueMinus());
                 }
             }
             
@@ -31,20 +32,22 @@ class Brewer
     {
         foreach (Property property in _propertries)
         {
-            foreach (Ingredient ingredent in _ingredientsUsed)
-            {
-                if (ingredent.GetDebuffProperty().ToLower() == property.GetNameAdd().ToLower())
-                {
-                    property.SetValueAdd(property.GetValueAdd() - ingredent.GetDebuffAmount());
 
-                }
-            }
+
             foreach (Property badPropertry in _propertries)
             {
+                
                 if (badPropertry.GetNameMinus() == property.GetNameAdd())
                 {
                     property.SetValueAdd(property.GetValueAdd() - badPropertry.GetValueMinus());
-                    property.SetValueMinus(0);
+                }
+            }
+
+            foreach (Ingredient ingredient in _ingredientsUsed)
+            {
+                if (ingredient.GetDebuffProperty() == property.GetNameAdd())
+                {
+                    property.SetValueAdd(property.GetValueAdd() - ingredient.GetBuffAmount());
                 }
             }
         }
@@ -52,23 +55,35 @@ class Brewer
 
     public List<Property> Mixer(List<Ingredient> _ingredients, List<Property> _propertries)
     {   
-        
-        int i = 1;
+
+        Console.Clear();
+        int i = 0;
+        int _userInput = 0;
         Console.Write("How many ingredents do you want to add: ");
-        while (i < int.Parse(Console.ReadLine()))
+        _userInput = int.Parse(Console.ReadLine());
+        while (i < _userInput)
         {
-            bool _isInList = false;
-            if (i == 1)
+
+            if (_ingredients.Count() == 0)
             {
+                Console.WriteLine("No ingredients to add.");
+                break;
+            }
+            bool _isInList = false;
+            if (i == 0)
+            {
+                Console.WriteLine();
+            
                 foreach (Ingredient ingredient in _ingredients)
                 {
                     ingredient.ShowIngredient();
                 }
+                Console.WriteLine();
             }
             
             while ( _isInList == false)
             {
-                Console.Write("What is the name of your ingredent");
+                Console.Write("What is the name of your ingredent: ");
                 string value = Console.ReadLine();
                 foreach (Ingredient ingredient in _ingredients)
                 {
@@ -78,16 +93,26 @@ class Brewer
                         _ingredientsUsed.Add(ingredient);
                         break;
                     }
-                    else
-                    {
-                        Console.WriteLine("Unknown ingredent, please try again.");
-                    }
+                }
+                
+                if (_isInList == false)
+                {
+                    Console.WriteLine("Unknown ingredent, please try again.\n");
                 }
             }
             i = i + 1;
+
         }
+        if(i == 0)
+        {
+            Console.WriteLine("Must use an ingredient");
+        }
+        else
+        {
         PropertiesAdding(_propertries);
         PropertiesMinusing(_propertries);
+        }
+        _ingredientsUsed.Clear();
         return _propertries;
     }
 
